@@ -42,7 +42,6 @@ let handler = async (m, { conn, usedPrefix }) => {
     for (let tag of orderedTags) {
       txt += `\n┏━━━━━━━━━━━━━━━━━━┓\n`
       txt += `┃ ᰔᩚ *${tag.toUpperCase()}* \n`
-      txt += `┃\n`
       for (let plugin of menu[tag]) {
         if (!Array.isArray(plugin.help)) continue
         for (let cmd of plugin.help) {
@@ -67,7 +66,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     await conn.sendMessage(
       m.chat,
       {
-        text: txt,
+        text: ``, 
+        footer: txt, 
         contextInfo: {
           mentionedJid: [m.sender],
           externalAdReply: {
