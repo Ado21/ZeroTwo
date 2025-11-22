@@ -169,7 +169,7 @@ export async function yukiJadiBot(options) {
             }
 
             if (qr && mcode) {
-                await conn.sendMessage(m.chat, { react: { text: '🕓', key: m.key } })
+                await conn.sendMessage(m.chat, { react: { text: '✔️', key: m.key } })
                 let secret = await sock.requestPairingCode((m.sender.split`@`[0]))
                 secret = secret.match(/.{1,4}/g)?.join("-")
                 
