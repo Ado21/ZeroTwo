@@ -19,7 +19,7 @@ function loadBotConfig(conn) {
         const botNumber = conn.user?.jid?.split('@')[0].replace(/\D/g, '')
         const configPath = path.join('./Sessions/SubBot', botNumber, 'config.json')
 
-        let currentName = global.namebot;
+        let currentName = global.botname;
         let currentBanner = global.banner;
 
         if (fs.existsSync(configPath)) {
@@ -28,7 +28,7 @@ function loadBotConfig(conn) {
                 if (config.name) currentName = config.name
                 if (config.banner) currentBanner = config.banner
             } catch (err) {
-                console.log(`⚠️ No se pudo leer la configuración personalizada para el bot ${botNumber}:`, err)
+                console.log(` No se pudo leer la configuración personalizada para el bot ${botNumber}:`, err)
             }
         }
 
