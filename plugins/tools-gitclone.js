@@ -49,7 +49,7 @@ conn.reply(m.chat, `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}rep
 }}
 
 handler.help = ['gitclone']
-handler.tags = ['github']
+handler.tags = ['download']
 handler.command = ['gitclone']
 handler.group = true
 
