@@ -33,6 +33,8 @@ m.reply(`⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para i
 }}
 
 handler.command = ['kicknum', 'listnum', 'listanum']
+handler.tags = ['grupo']
+handler.help = ['kicknum', 'listanum']
 handler.group = true
 handler.botAdmin = true
 handler.admin = true
