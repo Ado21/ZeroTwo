@@ -8,9 +8,21 @@ const fecha = new Date().toLocaleDateString("es-ES", { timeZone: "America/Mexico
 const groupSize = groupMetadata.participants.length + 1
 const desc = groupMetadata.desc?.toString() || 'Sin descripción'
 const mensaje = (chat.sWelcome || 'Edita con el comando "setwelcome"').replace(/{usuario}/g, `${username}`).replace(/{grupo}/g, `*${groupMetadata.subject}*`).replace(/{desc}/g, `${desc}`)
-const caption = `❀ Bienvenido a *"_${groupMetadata.subject}_"*\n✰ _Usuario_ » ${username}\n● ${mensaje}\n◆ _Ahora somos ${groupSize} Miembros._\nꕥ Fecha » ${fecha}\n૮꒰ ˶• ᴗ •˶꒱ა Disfruta tu estadía en el grupo!\n> *➮ Puedes usar _#help_ para ver la lista de comandos.*`
+
+const caption = `✿ *NUEVO USUARIO*\n\n` +
+`┏━━━━━━━━━━━━━━━━━━┓\n` +
+`┃ ᰔᩚ *BIENVENIDO/A*\n` +
+`┃ *❑* ${username}\n` +
+`┃ *❑ Grupo:* ${groupMetadata.subject}\n` +
+`┃ *❑ Miembros:* ${groupSize}\n` +
+`┃ *❑ Fecha:* ${fecha}\n` +
+`┗━━━━━━━━━━━━━━━━━━\n\n` +
+`✎ *Mensaje:*\n${mensaje}\n\n` +
+`> *૮꒰ ˶• ᴗ •˶꒱ა ¡Disfruta tu estadía aquí!*`
+
 return { pp, caption, mentions: [userId] }
 }
+
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 const username = `@${userId.split('@')[0]}`
 const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
@@ -18,9 +30,20 @@ const fecha = new Date().toLocaleDateString("es-ES", { timeZone: "America/Mexico
 const groupSize = groupMetadata.participants.length - 1
 const desc = groupMetadata.desc?.toString() || 'Sin descripción'
 const mensaje = (chat.sBye || 'Edita con el comando "setbye"').replace(/{usuario}/g, `${username}`).replace(/{grupo}/g, `${groupMetadata.subject}`).replace(/{desc}/g, `*${desc}*`)
-const caption = `❀ Adiós de *"_${groupMetadata.subject}_"*\n✰ _Usuario_ » ${username}\n● ${mensaje}\n◆ _Ahora somos ${groupSize} Miembros._\nꕥ Fecha » ${fecha}\n(˶˃⤙˂˶) Te esperamos pronto!\n> *➮ Puedes usar _#help_ para ver la lista de comandos.*`
+
+const caption = `✿ *SE FUE ALGUIEN*\n\n` +
+`┏━━━━━━━━━━━━━━━━━━┓\n` +
+`┃ ᰔᩚ *HASTA PRONTO*\n` +
+`┃ *❑* ${username}\n` +
+`┃ *❑ Miembros:* ${groupSize}\n` +
+`┃ *❑ Fecha:* ${fecha}\n` +
+`┗━━━━━━━━━━━━━━━━━━\n\n` +
+`✎ *Mensaje:*\n${mensaje}\n\n` +
+`> *✧ Te esperamos de regreso pronto.*`
+
 return { pp, caption, mentions: [userId] }
 }
+
 let handler = m => m
 handler.before = async function (m, { conn, participants, groupMetadata }) {
 if (!m.messageStubType || !m.isGroup) return !0
