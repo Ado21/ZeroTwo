@@ -4,7 +4,7 @@ import fetch from 'node-fetch'
 
 const handler = async (m, { conn, text, command }) => {
     try {
-        if (!text?.trim()) return conn.reply(m.chat, `❀ *Sistema de Descargas.*\n\nRequerimiento:\n✰ *Por favor, ingrese el título o enlace del video.*`, m)
+        if (!text?.trim()) return conn.reply(m.chat, `✰ *Por favor, ingrese el título o enlace del video.*`, m)
         await m.react('🕒')
 
         const videoMatch = text.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|live\/|v\/))([a-zA-Z0-9_-]{11})/)
