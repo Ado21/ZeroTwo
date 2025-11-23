@@ -10,6 +10,9 @@ import pino from 'pino'
 import NodeCache from 'node-cache'
 import chalk from 'chalk'
 import bcrypt from 'bcryptjs'
+import multer from 'multer'
+import axios from 'axios'
+import FormData from 'form-data'
 const { child, spawn, exec } = await import('child_process')
 import * as ws from 'ws'
 const { CONNECTING } = ws
@@ -95,6 +98,26 @@ const addLog = (phoneNumber, message) => {
     logs.push(`[${timestamp}] ${message}`)
     if (logs.length > MAX_LOGS) logs.shift()
 }
+
+// Upload function (from sockets-personalizacion.js)
+async function uploadToFreeImageHost(buffer) {
+  try {
+    const form = new FormData()
+    form.append('source', buffer, 'file')
+    const res = await axios.post('https://freeimage.host/api/1/upload', form, {
+      params: {
+        key: '6d207e02198a847aa98d0a2a901485a5'
+      },
+      headers: form.getHeaders()
+    })
+    return res.data.image.url
+  } catch (err) {
+    console.error('Error FreeImageHost:', err?.response?.data || err.message)
+    return null
+  }
+}
+
+const upload = multer({ storage: multer.memoryStorage() })
 
 // --- Subbot Logic ---
 if (global.conns instanceof Array) console.log()
@@ -411,7 +434,7 @@ app.get('/api/my-subbots', (req, res) => {
     res.json(mySubbots)
 })
 
-// API to get logs
+// API to get logs (deprecated, but kept for compatibility if needed, though UI won't use it)
 app.get('/api/subbot-logs/:id', (req, res) => {
     if (!req.signedCookies.user) return res.status(401).json({ error: 'Unauthorized' })
     const { id } = req.params
@@ -423,6 +446,61 @@ app.get('/api/subbot-logs/:id', (req, res) => {
 
     const logs = subbotLogs.get(id) || []
     res.json({ logs })
+})
+
+// API to get subbot config
+app.get('/api/subbot-config/:id', (req, res) => {
+    if (!req.signedCookies.user) return res.status(401).json({ error: 'Unauthorized' })
+    const { id } = req.params
+    const owners = getSubbotOwners()
+
+    if (owners[id] !== req.signedCookies.user) {
+        return res.status(403).json({ error: 'No tienes permiso' })
+    }
+
+    const configPath = path.join(getSessionPath(id), 'config.json')
+    let config = {}
+    if (fs.existsSync(configPath)) {
+        try {
+            config = JSON.parse(fs.readFileSync(configPath))
+        } catch (e) {}
+    }
+    res.json(config)
+})
+
+// API to save subbot config
+app.post('/api/subbot-config/:id', upload.single('banner'), async (req, res) => {
+    if (!req.signedCookies.user) return res.status(401).json({ error: 'Unauthorized' })
+    const { id } = req.params
+    const owners = getSubbotOwners()
+
+    if (owners[id] !== req.signedCookies.user) {
+        return res.status(403).json({ error: 'No tienes permiso' })
+    }
+
+    const configPath = path.join(getSessionPath(id), 'config.json')
+    let config = {}
+    if (fs.existsSync(configPath)) {
+        try {
+            config = JSON.parse(fs.readFileSync(configPath))
+        } catch (e) {}
+    }
+
+    if (req.body.name) {
+        config.name = req.body.name.trim()
+    }
+
+    if (req.file) {
+        const url = await uploadToFreeImageHost(req.file.buffer)
+        if (url) {
+            config.banner = url
+        } else {
+            return res.status(500).json({ error: 'Error al subir la imagen' })
+        }
+    }
+
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
+    res.json({ success: true, config })
 })
 
 // API to stop subbot
