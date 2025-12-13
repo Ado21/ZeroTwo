@@ -8,7 +8,7 @@ let handler = async (m, { conn, args }) => {
 
   const sections = [
     {
-      title: '🛍️ ECONOMÍA',
+      title: '✐ ECONOMÍA',
       emoji: '✿',
       commands: [
         ['#w • #work • #trabajar', 'Ganar coins trabajando.'],
@@ -37,7 +37,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '📥 DESCARGAS',
+      title: '✐ DESCARGAS',
       emoji: '✿',
       commands: [
         ['#tiktok • #tt [Link]', 'Descargar un video de TikTok.'],
@@ -55,7 +55,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '🎮 GACHA',
+      title: '✐ GACHA',
       emoji: '✿',
       commands: [
         ['#buycharacter • #buychar', 'Comprar un personaje en venta.'],
@@ -83,7 +83,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '⚙️ SOCKETS',
+      title: '✐ SOCKETS',
       emoji: '✿',
       commands: [
         ['#qr • #code', 'Crear un Sub-Bot con un código QR/Code.'],
@@ -99,7 +99,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '🛠️ UTILIDADES',
+      title: '✐ UTILIDADES',
       emoji: '✿',
       commands: [
         ['#help • #menu', 'Ver el menú de comandos.'],
@@ -130,7 +130,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '👤 PERFILES',
+      title: '✐ PERFILES',
       emoji: '✿',
       commands: [
         ['#leaderboard • #lboard • #top', 'Top de usuarios con más experiencia.'],
@@ -149,7 +149,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '👥 GRUPOS',
+      title: '✐ GRUPOS',
       emoji: '✿',
       commands: [
         ['#tag • #hidetag • #invocar', 'Envía un mensaje mencionando a todos.'],
@@ -187,7 +187,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '💕 REACCIONES ANIME',
+      title: '✐ REACCIONES ANIME',
       emoji: '✿',
       commands: [
         ['#angry • #enojado', 'Estar enojado.'],
@@ -243,7 +243,7 @@ let handler = async (m, { conn, args }) => {
       ]
     },
     {
-      title: '🔞 NSFW',
+      title: '✐ NSFW',
       emoji: '✿',
       commands: [
         ['#danbooru • #dbooru', 'Buscar imágenes en Danbooru.'],
@@ -255,25 +255,24 @@ let handler = async (m, { conn, args }) => {
     }
   ]
 
-  const header = `╭┈ࠢ͜─ׄ֟፝͜─ׄ͜─ׄ͜╴𐔌 *${sections[0].title.split(' ')[1] || sections[0].title}* 𐦯╶͜─ׄ͜─ׄ֟፝͜─ׄ͜─ׄ͜`
-  const footer = `╰ׅ͜─֟͜─͜─ٞ͜─͜─๊͜─͜─๋͜─⃔═̶፝֟͜═̶⃔─๋͜─͜─͜─๊͜─ٞ͜─͜─֟͜┈ࠢ͜╯ׅ`
+  const header = `𐔌   .  ⋮ ${sections[0].title.split(' ')[1] || sections[0].title} .ᐟ  ֹ   ₊ ꒱`
+  const footer = `꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦`
 
   let txt = `̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮
 ︶•︶°︶•︶°︶•︶°︶•︶°︶•︶°︶
-> ❀ ¡Hola! @${userId.split('@')[0]}, Soy ${botname}, Aquí tienes la lista de comandos.
+> ꕤ ¡Hola! @${userId.split('@')[0]}, Soy ${botname}, ${(conn.user.jid == global.conn.user.jid ? '𝗣𝗿𝗶𝗻𝗰𝗶𝗽𝗮𝗹' : '𝗦𝘂𝗯-𝗕𝗼𝘁')}
 
-╭┈ࠢ͜┅ࠦ͜͜╾݊͜─ؕ͜─ׄ͜─֬͜─֟͜─֫͜─ׄ͜─ؕ͜─݊͜┈ࠦ͜┅ࠡ͜͜┈࠭͜͜۰۰͜۰
-│✦ *Tipo* » ${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}
-│✰ *Usuarios* » ${totalreg.toLocaleString()}
-│⚘ *Versión* » ${vs}
-│ꕥ *Plugins* » ${totalCommands}
-│🜸 *Librería* » ${libreria}
-╰ׅ┈ࠢ͜─ׄ͜─ׄ֟፝͜─ׄ͜─ׄ͜╴ ⋱࣭ ᩴ  ⋮֔   ᩴ ⋰╶͜─ׄ͜─ׄ֟፝͜─ׄ͜─ׄ͜┈ࠢ͜╯ׅ
-
+> _*Aquí tienes la lista de comandos.*_
+╭┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
+│❍ *Usuarios* » ${totalreg.toLocaleString()}
+│❏ *Versión* » ${vs}
+│❀ *Plugins* » ${totalCommands}
+│★ *Librería* » ${libreria}
+╰ׅ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈
 `
 
   sections.forEach(section => {
-    txt += `╭‿︵${section.title}‿︵╮
+    txt += `𐔌   .  ⋮ ${section.title}  .ᐟ  ֹ   ₊ ꒱
 > ${section.emoji} Comandos de *${section.title.replace(/[🛍️📥🎮⚙️🛠️👤👥💕🔞]/g, '').trim()}*.
 ┃
 `
@@ -287,7 +286,7 @@ let handler = async (m, { conn, args }) => {
 `
   })
 
-  txt += `̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮`
+  txt += ``
 await conn.sendMessage(m.chat, { 
     text: txt,
     contextInfo: {
