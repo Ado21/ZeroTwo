@@ -259,7 +259,6 @@ let handler = async (m, { conn, args }) => {
 
   const footer = `*꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦*`
   
-  // Construimos el texto del menú (ahora irá en el footer)
   let txt = `> ꕤ ¡Hola! @${userId.split('@')[0]}, Soy ${botname}, ${(conn.user.jid == global.conn.user.jid ? '𝗣𝗿𝗶𝗻𝗰𝗶𝗽𝗮𝗹' : '𝗦𝘂𝗯-𝗕𝗼𝘁')}
 
 > _*Aquí tienes la lista de comandos.*_
@@ -300,7 +299,7 @@ let handler = async (m, { conn, args }) => {
           "deviceListMetadataVersion": 2
         },
         interactiveMessage: {
-          body: { text: "------------------------" },
+          body: { text: "------------------------------------" },
           footer: { text: txt },
           header: {
             hasMediaAttachment: true,
