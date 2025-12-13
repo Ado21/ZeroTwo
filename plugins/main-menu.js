@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
-// Importaciones necesarias para los botones (asegúrate de tener @whiskeysockets/baileys o @adiwajshing/baileys)
-import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys' 
+import { generateWAMessageFromContent, generateWAMessageContent, proto } from '@whiskeysockets/baileys' 
 
 let handler = async (m, { conn, args }) => {
   let mentionedJid = await m.mentionedJid
@@ -258,9 +257,9 @@ let handler = async (m, { conn, args }) => {
     }
   ]
 
-  const header = `𐔌   .  ⋮ *${sections[0].title.split(' ')[1] || sections[0].title}* .ᐟ  ֹ   ₊ ꒱`
   const footer = `*꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦︶꒷꒦*`
-
+  
+  // Construimos el texto del menú (ahora irá en el footer)
   let txt = `> ꕤ ¡Hola! @${userId.split('@')[0]}, Soy ${botname}, ${(conn.user.jid == global.conn.user.jid ? '𝗣𝗿𝗶𝗻𝗰𝗶𝗽𝗮𝗹' : '𝗦𝘂𝗯-𝗕𝗼𝘁')}
 
 > _*Aquí tienes la lista de comandos.*_
@@ -287,6 +286,12 @@ let handler = async (m, { conn, args }) => {
 `
   })
 
+  let media = await generateWAMessageContent({ 
+    image: { url: banner } 
+  }, { 
+    upload: conn.waUploadToServer 
+  })
+
   let msg = generateWAMessageFromContent(m.chat, {
     viewOnceMessage: {
       message: {
@@ -295,10 +300,11 @@ let handler = async (m, { conn, args }) => {
           "deviceListMetadataVersion": 2
         },
         interactiveMessage: {
-          body: { text: txt },
-          footer: { text: footer },
+          body: { text: "------------------------" },
+          footer: { text: txt },
           header: {
-            hasMediaAttachment: false
+            hasMediaAttachment: true,
+            imageMessage: media.imageMessage
           },
           nativeFlowMessage: {
             buttons: [
@@ -314,18 +320,7 @@ let handler = async (m, { conn, args }) => {
           },
           contextInfo: {
             mentionedJid: [userId],
-            isForwarded: false,
-            externalAdReply: {
-              title: botname,
-              body: textbot,
-              mediaType: 1,
-              mediaUrl: redes,
-              sourceUrl: redes,
-              thumbnail: await (await fetch(banner)).buffer(),
-              showAdAttribution: false,
-              containsAutoReply: true,
-              renderLargerThumbnail: true
-            }
+            isForwarded: false
           }
         }
       }
