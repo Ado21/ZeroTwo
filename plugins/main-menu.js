@@ -288,17 +288,11 @@ let handler = async (m, { conn, args }) => {
   })
 
   txt += `̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮`
-
-  await conn.sendMessage(m.chat, { 
+await conn.sendMessage(m.chat, { 
     text: txt,
     contextInfo: {
       mentionedJid: [userId],
-      isForwarded: true,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: '',
-        newsletterName: channelRD.name
-      },
+      isForwarded: false,
       externalAdReply: {
         title: botname,
         body: textbot,
